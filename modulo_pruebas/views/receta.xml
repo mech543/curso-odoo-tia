@@ -1,0 +1,351 @@
+<odoo>
+    <data>
+        <!-- formulario de ingredientes de la receta -->
+        <record model="ir.ui.view" id="modulo_pruebas.ingrediente_receta_form">
+            <field name="name">Formulario de IngredienteReceta</field>
+            <field name="model">modulo_pruebas.ingrediente_receta</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="ingrediente"/>
+                        <field name="cantidad"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="modulo_pruebas.ingrediente_receta_form2">
+            <field name="name">Formulario de IngredienteReceta</field>
+            <field name="model">modulo_pruebas.ingrediente_receta</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field string="Un ingrediente" name="ingrediente"/>
+                        <field name="cantidad"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <!-- Personalización de vista -->
+        <!-- Formulario-->
+        <record model="ir.ui.view" id="modulo_pruebas.receta_form">
+            <field name="name">Formulario de Recetas</field>
+            <field name="model">modulo_pruebas.receta</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <header>
+                            <button string="Habilitar/Deshabilitar" name="activa_receta"
+                                    type="object"/>
+                        </header>
+                        <separator string="Información General"/>
+                        <label for="" string="Formulario de recetas"/>
+                        <group col="4">
+                            <group>
+                                <field name="imagen" nolabel="1"
+                                       widget="image" width="300" colspan="2"/>
+                                <label for="nombre" string="Nombre receta"/>
+                                <field name="nombre" nolabel="1" required="0"/>
+                                <field name="cocina"/>
+                                <field name="ingredientes_resumen"/>
+                            </group>
+                        </group>
+                        <separator string="Configuración"/>
+
+                        <notebook>
+                            <page string="Ingredientes" invisible="0">
+                                <field name="ingredientes"
+                                context="{'form_view_ref': 'modulo_pruebas.ingrediente_receta_form2'}">
+                                    <tree>
+                                        <field name="ingrediente"/>
+                                        <field name="cantidad"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Administrativo">
+                                <group>
+                                    <field name="disponible" readonly="1"/>
+                                    <field name="precio"/>
+                                    <field name="autor"/>
+                                    <field name="autor_imagen" widget="image"/>
+                                </group>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--tree-->
+        <record model="ir.ui.view" id="modulo_pruebas.receta_tree">
+            <field name="name">Formulario de Recetas</field>
+            <field name="model">modulo_pruebas.receta</field>
+            <field name="arch" type="xml">
+                <tree default_order="cocina, nombre desc"
+                      decoration-danger="disponible == False"
+                      decoration-success="disponible == True"
+                      decoration-bf="disponible == False">
+                    <field name="nombre"/>
+                    <field name="ingredientes" attrs="{'column_invisible':[('nombre', 'ilike', 'o')]}"/>
+                    <field name="ingredientes_resumen"/>
+                    <field name="disponible" string="En menú"
+                           attrs="{'invisible':[('disponible', '!=', False)]}"/>
+                    <field name="cocina" options="{'invisible':True}"/>
+                    <field name="imagen" widget="image" width="100"/>
+                    <field name="id" sum="Suma" string="Suma"/>
+                    <field name="id" avg="Promedio"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Search-->
+        <record model="ir.ui.view" id="modulo_pruebas.receta_search">
+            <field name="name">Búsqueda de Recetas</field>
+            <field name="model">modulo_pruebas.receta</field>
+            <field name="arch" type="xml">
+                <search>
+
+                    <!--
+                        (nombre like %i%) and (disponible = True)
+                        A & B
+                        & A B
+
+                        ( ( nombre like '%t%' and disponible = True ) or nombre like '%z%')
+
+                        ((A & B) | C)
+                        | (A & B) C
+                        | (& AB) C
+
+                        1 3 5 4 2
+                        | & A B C
+                    -->
+                    <field name="nombre" string="Nombre de receta y cocina"
+                           filter_domain="['|', ('nombre', 'ilike', self), ('cocina.nombre', 'ilike', self)]"/>
+                    <field name="cocina"/>
+                    <filter name="filtro_1" string="Activas" domain="[('disponible', '=', True)]"/>
+                    <filter name="filtro_2" string="Activas con I"
+                            domain="['&amp;', ('nombre', 'ilike', '%i%'), ('disponible', '=', True)]"/>
+                    <filter name="filtro_3" string="Activas con t o tiene z"
+                            domain="
+                       ['|','&amp;',('nombre','ilike','%t%'),('disponible','=',True),('nombre','ilike','%z%')]
+                             "/>
+                    <group>
+                        <filter name="grupo_1" string="Por cocina" domain="[]"
+                                context="{'group_by':'cocina'}"/>
+                    </group>
+                    <searchpanel>
+                        <field name="cocina" select="multi" icon="fa-cutlery"/>
+                    </searchpanel>
+
+                </search>
+            </field>
+        </record>
+
+        <!--Form Generico-->
+        <record model="ir.ui.view" id="modulo_pruebas.receta_form_generico">
+            <field name="name">Formulario Generico de recetas</field>
+            <field name="model">modulo_pruebas.receta</field>
+            <field name="arch" type="xml">
+                <form>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-6 col-md-12 alert alert-warning" role="alert">
+                                <field name="nombre"/>
+                            </div>
+                            <div class="col-6 col-md-12">
+                                <button
+                                        name="%(modulo_pruebas.ventana_receta_kanban)d"
+                                        type="action"
+                                        class="btn btn-info"
+                                        string="Vista Kanban"/>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Tree Generico -->
+        <record model="ir.ui.view" id="modulo_pruebas.receta_tree_generico">
+            <field name="name">Tree generico de recetas</field>
+            <field name="model">modulo_pruebas.receta</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="nombre"/>
+                    <field name="secuencia"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Search Generico -->
+        <record model="ir.ui.view" id="modulo_pruebas.receta_search_generico">
+            <field name="name">Search generico de recetas</field>
+            <field name="model">modulo_pruebas.receta</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="nombre"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="modulo_pruebas.receta_kanban_form">
+            <field name="name">Formulario kanban de recetas</field>
+            <field name="model">modulo_pruebas.receta</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="nombre"/>
+                        <field name="cocina"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <!-- Kanban Génerico -->
+        <record model="ir.ui.view" id="modulo_pruebas.receta_kanban">
+            <field name="name">Receta kanban</field>
+            <field name="model">modulo_pruebas.receta</field>
+            <field name="arch" type="xml">
+                <kanban
+                        quick_create_view="modulo_pruebas.receta_kanban_form"
+                        default_group_by="cocina"
+                        create="1"
+                        edit="1"
+                        delete="1"
+                        group_create="0"
+                >
+                    <!-- campos disponibles -->
+                    <field name="nombre"/>
+                    <field name="secuencia"/>
+                    <!-- diseño -->
+                    <templates>
+                        <t t-name="kanban-box">
+                            <!-- t-attf-class="oe_kanban_global_click" -->
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-6 row">
+                                        <div class="col-12">
+                                            <h1>
+                                                <field name="nombre"/>
+                                                <field name="secuencia"/>
+                                            </h1>
+                                        </div>
+                                        <div class="col-12">
+                                            <h4>
+                                                <field name="cocina"/>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 row">
+                                        <field name="imagen" widget="image"
+                                               width="100" height="100"/>
+                                    </div>
+                                    <div class="col-12 row" style="color:red">
+                                        <a type="edit" class="btn btn-primary col-6">Editar</a>
+                                        <a type="delete" class="btn btn-danger col-6">Eliminar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="modulo_pruebas.ventana_receta">
+            <field name="name">Catálogo de Recetas</field>
+            <field name="res_model">modulo_pruebas.receta</field>
+            <field name="view_mode">tree,form,search</field>
+            <field name="search_view_id" ref="modulo_pruebas.receta_search_generico"/>
+            <field name="view_ids" eval="[
+                (5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('modulo_pruebas.receta_tree_generico')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('modulo_pruebas.receta_form_generico')}),
+            ]"/>
+        </record>
+
+        <record model="ir.actions.act_window" id="modulo_pruebas.ventana_receta_italiana">
+            <field name="name">Recetas Italianas</field>
+            <field name="res_model">modulo_pruebas.receta</field>
+            <field name="view_mode">tree,form,search</field>
+            <field name="search_view_id" ref="modulo_pruebas.receta_search"></field>
+            <field name="domain">[('cocina.nombre', '=', 'Italiana')]</field>
+            <field name="context">
+                {
+                'search_default_filtro_1': True,
+                'search_default_grupo_1': True
+            }
+            </field>
+            <field name="view_ids" eval="[
+                (5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('modulo_pruebas.receta_tree')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('modulo_pruebas.receta_form')}),
+            ]"/>
+        </record>
+
+        <record model="ir.actions.act_window" id="modulo_pruebas.ventana_receta_mexicanas">
+            <field name="name">Recetas Mexicanas</field>
+            <field name="res_model">modulo_pruebas.receta</field>
+            <field name="view_mode">tree,form,search</field>
+            <field name="search_view_id" ref="modulo_pruebas.receta_search"></field>
+            <field name="domain">[('cocina.nombre', 'ilike', 'mexicana')]</field>
+            <field name="context">
+                {
+                'search_default_filtro_1': True,
+                'search_default_grupo_1': True
+            }
+            </field>
+            <field name="view_ids" eval="[
+                (5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('modulo_pruebas.receta_tree')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('modulo_pruebas.receta_form')}),
+            ]"/>
+        </record>
+
+        <record model="ir.actions.act_window" id="modulo_pruebas.ventana_receta_kanban">
+            <field name="name">Recetas Kanban</field>
+            <field name="res_model">modulo_pruebas.receta</field>
+            <field name="view_mode">kanban,form,search</field>
+            <field name="search_view_id" ref="modulo_pruebas.receta_search_generico"/>
+            <field name="view_ids" eval="[
+                (5, 0, 0),
+                (0, 0, {'view_mode': 'kanban', 'view_id': ref('modulo_pruebas.receta_kanban')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('modulo_pruebas.receta_form')}),
+            ]"/>
+        </record>
+
+        <menuitem
+                id="modulo_pruebas.receta_raiz"
+                name="Recetas"
+                parent="modulo_pruebas.menu_raiz"
+                sequence="0"/>
+
+        <menuitem
+                id="modulo_pruebas.receta_tipo_cocina"
+                name="Por cocina"
+                parent="modulo_pruebas.receta_raiz"/>
+
+        <menuitem name="Italianas"
+                  id="modulo_pruebas.submenu_recetas_italianas"
+                  parent="modulo_pruebas.receta_tipo_cocina"
+                  action="modulo_pruebas.ventana_receta_italiana"
+        />
+
+        <menuitem name="Mexicanas"
+                  id="modulo_pruebas.submenu_recetas_mexicanas"
+                  parent="modulo_pruebas.receta_tipo_cocina"
+                  action="modulo_pruebas.ventana_receta_mexicanas"
+        />
+
+        <menuitem name="Todas" id="modulo_pruebas.recetas_todas"
+                  parent="modulo_pruebas.receta_raiz"
+                  action="modulo_pruebas.ventana_receta"
+                  sequence="0"/>
+
+        <menuitem name="Receta kanban"
+                  id="modulo_pruebas.receta_menu_kanban"
+                  action="modulo_pruebas.ventana_receta_kanban"
+                  parent="modulo_pruebas.receta_raiz"/>
+
+    </data>
+</odoo>

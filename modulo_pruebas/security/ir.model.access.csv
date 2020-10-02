@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_modulo_pruebas_permiso_ingrediente,Permisos de Ingrediente,model_modulo_pruebas_ingrediente,base.group_user,1,1,1,1
+access_modulo_pruebas_permiso_receta,Permisos de Recetas,model_modulo_pruebas_receta,base.group_user,1,1,1,1
+access_modulo_pruebas_permiso_cocina,Permisos de Cocina,model_modulo_pruebas_cocina,base.group_user,1,1,1,1
+access_modulo_pruebas_permiso_pedido,Permisos de Pedido,model_modulo_pruebas_pedido,base.group_user,1,1,1,1
+access_modulo_pruebas_permiso_detalle_pedido,Permisos de detalle Pedido,model_modulo_pruebas_detalle_pedido,base.group_user,1,1,1,1
+access_modulo_pruebas_permiso_estado_pedido,Permisos de estado Pedido,model_modulo_pruebas_estado_pedido,base.group_user,1,1,1,1
+access_modulo_pruebas_permiso_ingrediente_receta,Permisos de ingrediente receta,model_modulo_pruebas_ingrediente_receta,base.group_user,1,1,1,1

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="modulo_pruebas.pedido_tree">
+            <field name="name">Listado de pedido</field>
+            <field name="model">modulo_pruebas.pedido</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="numero"/>
+                    <field name="cliente"/>
+                    <field name="estado"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="modulo_pruebas.estado_pedido_tree" model="ir.ui.view">
+            <field name="name">estados pedido</field>
+            <field name="model">modulo_pruebas.estado_pedido</field>
+            <field name="arch" type="xml">
+                <tree><field name="orden"/><field name="nombre"></field></tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="modulo_pruebas.pedido_kanban">
+            <field name="name">Pedidos kanban</field>
+            <field name="model">modulo_pruebas.pedido</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="estado">
+                    <field name="cliente"/>
+                    <field name="total"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <h4>Pedido:<field name="numero"/></h4>
+                                <hr/>
+                                <span><field name="resumen" widget="html"/></span>
+                                <span>Cliente:<field name="cliente"/></span>
+                                <hr/>
+                                <span><h4>Total:</h4><field name="total"/></span>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="modulo_pruebas.pedido_form">
+            <field name="name">Formulario de pedido</field>
+            <field name="model">modulo_pruebas.pedido</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <separator string="Generales"/>
+                        <group>
+                            <field name="numero"/>
+                            <field name="cliente"/>
+                            <field name="estado"
+                                   context="{'order_display':'orden desc'}"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                        </group>
+                    </sheet>
+                    <sheet>
+                        <separator string="Contenido"/>
+                        <group>
+                            <field name="detalles">
+                                <tree editable="bottom">
+                                    <field name="cantidad"/>
+                                    <field name="receta"
+                                           domain="[('disponible', '=', True)]"
+                                           options="{'no_create': True}"/>
+                                    <field name="receta_precio"/>
+                                    <field name="importe"/>
+                                    <field name="foto_receta" widget="image" width="50"/>
+                                </tree>
+                            </field>
+                            <field name="total"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window"
+                id="modulo_pruebas.accion_pedidos">
+            <field name="name">Listado de Pedidos</field>
+            <field name="res_model">modulo_pruebas.pedido</field>
+            <field name="view_mode">tree,kanban,form</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="modulo_pruebas.accion_pedidos_kanban">
+            <field name="name">Listado de Pedidos kanban</field>
+            <field name="res_model">modulo_pruebas.pedido</field>
+            <field name="view_mode">kanban,tree,form</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="modulo_pruebas.accion_estado_pedido">
+            <field name="name">Listado de estado pedido</field>
+            <field name="res_model">modulo_pruebas.estado_pedido</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="modulo_pruebas.menu_pedido"
+                  name="Pedidos"
+                  parent="modulo_pruebas.menu_raiz"/>
+
+        <menuitem id="modulo_pruebas.menu_pedido_lista"
+                  name="Pedidos lista"
+                  parent="modulo_pruebas.menu_pedido"
+                  action="modulo_pruebas.accion_pedidos"/>
+
+        <menuitem id="modulo_pruebas.menu_pedido_kanban"
+                  name="Pedidos Kanban"
+                  parent="modulo_pruebas.menu_pedido"
+                  action="modulo_pruebas.accion_pedidos_kanban"/>
+
+
+        <menuitem id="modulo_pruebas.menu_estado_pedido"
+                  name="Estados de pedido"
+                  parent="modulo_pruebas.menu_pedido"
+                  action="modulo_pruebas.accion_estado_pedido"
+        ></menuitem>
+    </data>
+</odoo>

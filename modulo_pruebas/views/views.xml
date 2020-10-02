@@ -1,0 +1,5 @@
+<odoo>
+    <data>
+        <menuitem name="Módulo de pruebas" id="modulo_pruebas.menu_raiz"/>
+    </data>
+</odoo>

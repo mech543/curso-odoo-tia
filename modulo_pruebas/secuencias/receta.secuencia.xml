@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data noupdate="1">
+        <record model="ir.sequence"
+                id="modulo_pruebas.receta_secuencia">
+            <field name="name">Consecutivo de recetas</field>
+            <field name="code">modulo_pruebas.receta_secuencia</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record model="ir.sequence"
+                id="modulo_pruebas.pedido_secuencia">
+            <field name="name">Consecutivo de pedidos</field>
+            <field name="code">modulo_pruebas.pedido_secuencia</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

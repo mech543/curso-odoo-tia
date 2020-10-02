@@ -1,0 +1,36 @@
+<odoo>
+    <data>
+        <!-- Personalización de vista -->
+
+        <record model="ir.ui.view" id="modulo_pruebas.cocina_form">
+            <field name="name">Formulario de tipos de cocina</field>
+            <field name="model">modulo_pruebas.cocina</field>
+            <field name="arch" type="xml">
+                <form>
+                    <field name="nombre"/>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="modulo_pruebas.cocina_tree">
+            <field name="name">Formulario de cocinas</field>
+            <field name="model">modulo_pruebas.cocina</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="nombre"/>
+                    <field name="recetas"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="modulo_pruebas.ventana_cocina">
+            <field name="name">Catálogo de tipos de cocina</field>
+            <field name="res_model">modulo_pruebas.cocina</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem name="Cocina" id="modulo_pruebas.submenu_cocinas"
+                  parent="modulo_pruebas.menu_raiz"
+                  action="modulo_pruebas.ventana_cocina"/>
+    </data>
+</odoo>
