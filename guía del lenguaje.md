@@ -34,42 +34,44 @@
 ## Conceptos generales <a id="generales"></a>
 ---
 
-    ### Comentarios <a id="comentarios"></a>
+### Comentarios <a id="comentarios"></a>
+```python
     #Comentario en simple linea
     """
         comentario multilinea
     """
+```    
 ### Importar código <a id="import"></a>
 
-   
-
+```python
      # importar un módulo
     import math
     numero = 49
     # ya se puede usar el módulo
     print(f"la raíz cuadrada de {numero} es {math.sqrt(numero)}")
-    
+
     # Importar sólo un miembro de un módulo
     from math import sqrt
-    
+
     print(f"la raíz cuadrada de {numero} es {sqrt(numero)}")
-    
-    
+
+
     # Importar sólo un miembro de un módulo con un alias
     from math import sqrt as raiz
-    
-    print(f"la raíz cuadrada de {numero} es {raiz(numero)}")
-### Variables <a id="variables"></a>
 
+    print(f"la raíz cuadrada de {numero} es {raiz(numero)}")
+```
+### Variables <a id="variables"></a>
+```python
     #Declaración de variable
     cadena = "cadena"
     numero = 28
     decimal = 3.14159265359
     
     print(cadena, numero, decimal)
-
+```
 ### Tipos de variables <a id="tipos_variables"></a>
-
+```python
     numerico = 1
     
     decimal = 1.5
@@ -83,9 +85,9 @@
     conjunto = (1, 8, 9, 7)
     
     diccionario = {"a":9}
-
+```
 ### Interpolación y suma de cadenas <a id="interpolacion"></a>
-
+```python
     # Concatenación
     
     a = "Primera parte"
@@ -96,8 +98,9 @@
     # Interpolación de cadenas
     
     print(f"Interpolación: {a} {b} {c}")
+```
 ### Fechas <a id="fechas"></a>
-
+```python
     from datetime import datetime
     
     # Obtener fecha actual
@@ -105,10 +108,11 @@
     
     # crear una fecha dia, mes, año, hora, minutos, segudos, microsegundos
     print(f"nueva fecha: {datetime(2020, 12, 31, 23, 59, 59, 999999)}")
+```
 ## Estructuras de control <a id="estructuras"></a>
 ---
 ### IF, ELIF y ELSE <a id="if"></a>
-
+```python
     a = 8
     b = 3
     c = 5
@@ -135,9 +139,9 @@
     
     variable = "8 es mayor" if a > b and a > c else "no entrara" 
     print(variable)
-        
+```        
 ### CICLOS <a id="ciclos"></a>
-
+```python
     contador = 0
     max = 5
     while contador < max: 
@@ -150,11 +154,11 @@
         print(contador)
     else:
         print("no se cumplió")
-
+```
 ## Funciones y clases <a id="funciones_clases"></a>
 ---
 ### Funciones <a id="funciones"></a>
-
+```python
     #declaracion de un método o funcion
     
     def f_vacia():
@@ -191,9 +195,9 @@
     # Invocación función con parametros variables con nombre
     f_variante_nombre()
     f_variante_nombre(uno=1, dos=2)
-
+```
 ### Clases
-
+```python
     class Clase:
         # Atributo público
         x = "hola"
@@ -227,12 +231,13 @@
     
     pepe.__y = "Variable privada" #error
     pepe.saluda()# Qué tal josé
-
+```
 ### Encapsulamiento <a id="encapsulamiento"></a>
-
+```python
     # TBA
+```
 ### Herencia
-
+```python
     # Declaración
     class Animal:
         nombre = 'Anonimo'
@@ -267,11 +272,11 @@
     print()
     otro_animal = Animal()
     otro_animal.come()
-
+```
 ## Conceptos avanzados <a id="avanzados"></a>
 ---
 ## Notación de slices
-
+```python
     coleccion = list(range(10))
     print(f'lista {coleccion}')
     
@@ -290,9 +295,9 @@
     print(f'Números pares de media lista: {coleccion[:5:2]}')
     
     print(f'Números impares: {coleccion[1::2]}')
-
+```
 ### Shorthands y list, map comprehension
-
+```python
     # SHORTHANDS
     """
     Shorthand es la forma reducida de una instrucción
@@ -330,15 +335,16 @@
     # dictionary comprehension
     numero_y_su_cuadrado = {n:n**2 for n in range(1,11)}
     print(f'cada cuadrado del 1 al 10:\n {numero_y_su_cuadrado}')
-
+```    
+```python
     diccionario = {"uno" : 1, "dos":2}
     if 'tres' in diccionario:
         print(diccionario['tres'])
     else:
         print('Tres no existe')
-
+```
 ### Validar vacíos <a id="validar_vacios"></a>
-
+```python
     import datetime
     hoy = datetime.datetime.now()
     # validar vacíos
@@ -359,3 +365,4 @@
         if not v: # validar que no sea valido solo negandolo
             print(f"{v} tiene un valor NO válido")
 
+```
