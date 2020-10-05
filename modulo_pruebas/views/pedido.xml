@@ -17,7 +17,10 @@
             <field name="name">estados pedido</field>
             <field name="model">modulo_pruebas.estado_pedido</field>
             <field name="arch" type="xml">
-                <tree><field name="orden"/><field name="nombre"></field></tree>
+                <tree>
+                    <field name="orden"/>
+                    <field name="nombre"/>
+                </tree>
             </field>
         </record>
 
@@ -50,6 +53,7 @@
             <field name="model">modulo_pruebas.pedido</field>
             <field name="arch" type="xml">
                 <form>
+                    <button name="actualiza_cupon_1" type="object" string="accion temporal"/>
                     <sheet>
                         <separator string="Generales"/>
                         <group>
@@ -81,8 +85,7 @@
             </field>
         </record>
 
-        <record model="ir.actions.act_window"
-                id="modulo_pruebas.accion_pedidos">
+        <record model="ir.actions.act_window" id="modulo_pruebas.accion_pedidos">
             <field name="name">Listado de Pedidos</field>
             <field name="res_model">modulo_pruebas.pedido</field>
             <field name="view_mode">tree,kanban,form</field>
