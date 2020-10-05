@@ -125,8 +125,6 @@ class Pedido(models.Model):
 
     @api.model
     def create(self, values):
-        print(values)
-
         if not values['cliente']:
             raise UserError("Se requiere un cliente")
 
@@ -138,10 +136,20 @@ class Pedido(models.Model):
 
         values['numero'] = self.env['ir.sequence'].next_by_code('modulo_pruebas.pedido_secuencia')
 
-        return super().create(values)
+        retorno = super().create(values)
+        pedidos_cliente = self.env['modulo_pruebas.pedido'].search([('cliente', '=', values['cliente'])])
+        if len(pedidos_cliente) % 3 == 0:
+            dic_cupon = {'nombre': '10% descuento por 3 pedidos', 'descuento': 10, 'cliente': values['cliente']}
+            self.env['modulo_pruebas.cupon'].create(dic_cupon)
+        return retorno
 
     def write(self, values):
         super().write(values)
+
+    def actualiza_cupon_1(self):
+        cupones = self.env['modulo_pruebas.cupon'].search([('id', '=', 1)])
+        for cupon in cupones:
+            cupon.write({'nombre': '10% de descuento por cada 3 pedidos'})
 
 
 class DetallePedido(models.Model):
