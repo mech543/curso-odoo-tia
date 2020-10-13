@@ -47,13 +47,13 @@
             </field>
         </record>
 
-
         <record model="ir.ui.view" id="modulo_pruebas.pedido_form">
             <field name="name">Formulario de pedido</field>
             <field name="model">modulo_pruebas.pedido</field>
             <field name="arch" type="xml">
                 <form>
                     <button name="actualiza_cupon_1" type="object" string="accion temporal"/>
+                    <button name="finaliza_turno" type="object" string="Finalizar turno"/>
                     <sheet>
                         <separator string="Generales"/>
                         <group>
@@ -62,6 +62,7 @@
                             <field name="estado"
                                    context="{'order_display':'orden desc'}"
                                    options="{'no_create': True, 'no_open': True}"/>
+                            <field name="activa" readonly="1"/>
                         </group>
                     </sheet>
                     <sheet>
@@ -85,6 +86,16 @@
             </field>
         </record>
 
+        <!-- Acciones -->
+
+         <record model="ir.actions.server" id="modulo_pruebas.accion_finalizar_turno">
+            <field name="name">Finalizar pedidos del día</field>
+            <field name="model_id" ref="model_modulo_pruebas_pedido"/>
+            <field name="type">ir.actions.server</field>
+            <field name="state">code</field>
+            <field name="code">model.finaliza_turno()</field>
+        </record>
+
         <record model="ir.actions.act_window" id="modulo_pruebas.accion_pedidos">
             <field name="name">Listado de Pedidos</field>
             <field name="res_model">modulo_pruebas.pedido</field>
@@ -94,6 +105,14 @@
         <record model="ir.actions.act_window" id="modulo_pruebas.accion_pedidos_kanban">
             <field name="name">Listado de Pedidos kanban</field>
             <field name="res_model">modulo_pruebas.pedido</field>
+            <field name="domain">['&amp;',('activa', '=', 1),('estado.orden', '!=', 6)]</field>
+            <field name="view_mode">kanban,tree,form</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="modulo_pruebas.accion_pedidos_kanban_historico">
+            <field name="name">Listado de Historico de Pedidos kanban</field>
+            <field name="res_model">modulo_pruebas.pedido</field>
+            <field name="domain">['|', ('activa', '=', 0),('estado.orden', '=', 6)]</field>
             <field name="view_mode">kanban,tree,form</field>
         </record>
 
@@ -102,6 +121,10 @@
             <field name="res_model">modulo_pruebas.estado_pedido</field>
             <field name="view_mode">tree,form</field>
         </record>
+
+
+
+        <!-- Menús -->
 
         <menuitem id="modulo_pruebas.menu_pedido"
                   name="Pedidos"
@@ -117,11 +140,19 @@
                   parent="modulo_pruebas.menu_pedido"
                   action="modulo_pruebas.accion_pedidos_kanban"/>
 
+        <menuitem id="modulo_pruebas.menu_pedido_kanban_historico"
+                  name="Historico de Pedidos Kanban"
+                  parent="modulo_pruebas.menu_pedido"
+                  action="modulo_pruebas.accion_pedidos_kanban_historico"/>
+
+        <menuitem id="modulo_pruebas.menu_finalizar_turno"
+                  name="Finalizar turno"
+                  parent="modulo_pruebas.menu_pedido"
+                  action="modulo_pruebas.accion_finalizar_turno"/>
 
         <menuitem id="modulo_pruebas.menu_estado_pedido"
                   name="Estados de pedido"
                   parent="modulo_pruebas.menu_pedido"
-                  action="modulo_pruebas.accion_estado_pedido"
-        ></menuitem>
+                  action="modulo_pruebas.accion_estado_pedido"/>
     </data>
 </odoo>
