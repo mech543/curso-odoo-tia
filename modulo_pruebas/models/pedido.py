@@ -58,9 +58,13 @@ class Pedido(models.Model):
         return retorno
 
     def write(self, values):
-        estado_actual = int(self.estado.orden)
-        if estado_actual in [0, 5, 6] and 'estado' in values and self.activa or \
-                estado_actual not in [0, 5, 6] and 'activa' in values and self.activa:
+        estado_anterior = int(self.estado.orden)
+        edo = self.env['modulo_pruebas.estado_pedido'].browse(values['estado']).orden if 'estado' in values else -1
+        edo = int(edo)
+        es_asignable = estado_anterior in [0, 5, 6] and self.activa and edo not in [0, 5, 6]
+        es_reactivada = not self.activa and 'activa' in values and values['activa']
+
+        if es_asignable or es_reactivada:
             pedidos_en_proceso = self.search(['&', ('estado.orden', 'in', ['1', '2', '3', '4']), ('activa', '=', 1)])
             if len(pedidos_en_proceso) >= 5:
                 raise UserError("No se puede atender esta orden, el restaurante está saturado.")

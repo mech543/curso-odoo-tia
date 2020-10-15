@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <report
+        id="reporte_receta_por_cocina"
+        model="modulo_pruebas.cocina"
+        string="Reporte de recetas"
+        report_type="qweb-pdf"
+        name="modulo_pruebas.reporte_recetas"
+        file="modulo_pruebas.reporte_recetas"
+        attachment_use="True"
+    />
+</odoo>

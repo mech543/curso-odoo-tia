@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="modulo_pruebas.reporte_recetas">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="cocina">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <h2 class="text-center">Recetas de cocina <span t-field="cocina.nombre"/></h2>
+                            <br/>
+                            <br/>
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Nombre</th>
+                                        <th scope="col">Ingredientes</th>
+                                        <th scope="col">Precio</th>
+                                        <th scope="col">Autor</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-if="not cocina.recetas">
+                                        <tr>
+                                            <td colspan="4" class="text-center">Esta cocina no tiene recetas</td>
+                                        </tr>
+                                    </t>
+                                    <t t-foreach="cocina.recetas" t-as="receta">
+                                        <tr>
+                                            <td>
+                                                <t t-raw="receta.nombre"/>
+                                            </td>
+                                            <td>
+                                                <t t-raw="receta.ingredientes_resumen"/>
+                                            </td>
+                                            <td>
+                                                $<t t-raw="receta.precio"/>
+                                            </td>
+                                            <td>
+                                                <t t-raw="receta.autor.name"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>
