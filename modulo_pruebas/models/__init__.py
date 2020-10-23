@@ -3,4 +3,4 @@
 from . import pedido
 from . import estado_pedido
 from . import cocina, detalle_pedido, estado_pedido, ingrediente
-from . import cupon, ingrediente_receta, receta
+from . import cupon, ingrediente_receta, receta, usuario_restaurante, tipo_usuario

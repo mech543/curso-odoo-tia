@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="modulo_pruebas.reporte_pedidos">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="pedido">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <div class="card bg-light">
+                                <div class="card-header">
+                                    <h1 class="text-center">Resumen del pedido No. <span t-field="pedido.numero"/> </h1>
+
+                                    <h3>Estado:</h3>
+                                    <h4><span t-field="pedido.estado"/> </h4>
+
+                                    <h3>Activo:</h3>
+                                    <t t-if="pedido.activa">
+                                        <h4>Sí</h4>
+                                    </t>
+                                    <t t-if="not pedido.activa">
+                                        <h4>No</h4>
+                                    </t>
+
+                                    <h3>Cliente:</h3>
+                                    <h4>
+                                        <img
+                                                t-attf-src="data:image/*;base64,{{pedido.cliente.image_128}}"
+                                                class="img-thumbnail"/>
+                                        <span t-field="pedido.cliente.name"/>
+                                    </h4>
+
+                                    <h3>Detalles del pedido:</h3>
+                                    <table>
+                                        <thead>
+                                            <tr class="text-center">
+                                                <th>Cantidad</th>
+                                                <th>Receta</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="pedido.detalles" t-as="det">
+                                                <tr class="text-center">
+                                                    <td>
+                                                        <span t-field="det.cantidad"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-field="det.receta"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+
+                                    <h3>Total: $<span t-field="pedido.total"/> </h3>
+
+                                    <t t-set="porcentaje" t-value="pedido.obten_porcentaje_cliente_exitoso()"/>
+                                    <div class="progress" style="height:20px;">
+                                        <div class="progress-bar" t-attf-style="width:{{porcentaje}}%; height:20px"><span t-raw="porcentaje"/>%</div>
+                                    </div>
+
+                                    <t t-set="pedidosCliente" t-value="pedido.obten_pedidos_cliente()"/>
+
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>No.</th>
+                                                <th>Estado</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="pedidosCliente" t-as="p">
+                                                <tr>
+                                                    <td>
+                                                        <t t-if="p.numero">
+                                                            <span t-raw="p.numero"/>
+                                                        </t>
+                                                        <t t-if="not p.numero">
+                                                            <span t-raw="0"/>
+                                                        </t>
+                                                    </td>
+                                                    <td>
+                                                        <span t-raw="p.estado.nombre"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

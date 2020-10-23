@@ -31,9 +31,13 @@
         'views/receta.xml',
         'views/cocina.xml',
         'views/pedido.xml',
+        'views/tipousuario.xml',
+        'views/usuario.xml',
         'secuencias/receta.secuencia.xml',
         'reportes/reporte.xml',
-        'reportes/cocinaRecetasTemplate.xml'
+        'reportes/cocinaRecetasTemplate.xml',
+        'reportes/pedidos.reporte.xml',
+        'reportes/pedidos.template.xml'
     ],
     # only loaded in demonstration mode
     'demo': [

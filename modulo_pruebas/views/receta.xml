@@ -66,7 +66,7 @@
                                 <group>
                                     <field name="disponible" readonly="1"/>
                                     <field name="precio"/>
-                                    <field name="autor"/>
+                                    <field name="autor" domain="[('tipo.clave','=', 'R-CHEF')]"/>
                                     <field name="autor_imagen" widget="image"/>
                                 </group>
                             </page>

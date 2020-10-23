@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <!-- Acciones -->
+
+        <act_window id="modulo_pruebas.accion_tipo_usuario"
+                name="Catalogo de tipos de usuario"
+                res_model="modulo_pruebas.tipo_usuario"
+                view_mode="tree,form"/>
+
+        <!-- Menus -->
+        <menuitem id="modulo_pruebas.menu_tipo_usuario"
+                  name="Tipos de usuario"
+                  parent="modulo_pruebas.menu_raiz"
+                  action="modulo_pruebas.accion_tipo_usuario"/>
+    </data>
+</odoo>

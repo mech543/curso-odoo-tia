@@ -4,6 +4,8 @@ access_modulo_pruebas_permiso_receta,Permisos de Recetas,model_modulo_pruebas_re
 access_modulo_pruebas_permiso_cocina,Permisos de Cocina,model_modulo_pruebas_cocina,base.group_user,1,1,1,1
 access_modulo_pruebas_permiso_pedido,Permisos de Pedido,model_modulo_pruebas_pedido,base.group_user,1,1,1,1
 
+access_modulo_pruebas_permiso_tipo_usuario,Permisos de tipo_usuario,model_modulo_pruebas_tipo_usuario,base.group_user,1,1,1,1
+
 access_modulo_pruebas_permiso_cupon,Permisos de cupon,model_modulo_pruebas_cupon,base.group_user,1,1,1,1
 
 access_modulo_pruebas_permiso_detalle_pedido,Permisos de detalle Pedido,model_modulo_pruebas_detalle_pedido,base.group_user,1,1,1,1

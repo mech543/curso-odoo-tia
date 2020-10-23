@@ -18,6 +18,27 @@ class Pedido(models.Model):
     resumen = fields.Char(compute='_calcula_resumen')
     total = fields.Float(compute='_calcula_total')
 
+    def obten_porcentaje_cliente_exitoso(self):
+        orden_cliente = self.cliente.id
+        consulta = """ 
+            SELECT
+                estado.orden
+            FROM
+                modulo_pruebas_pedido AS pedido
+                    INNER JOIN res_users AS cliente ON pedido.cliente = cliente.id
+                    INNER JOIN modulo_pruebas_estado_pedido AS estado ON pedido.estado = estado.id
+            WHERE
+                cliente.id = 
+                   """ + str(orden_cliente)
+        self._cr.execute(consulta)
+        pedidos_cliente = self._cr.fetchall()
+        cancelados = len([a for a in pedidos_cliente if '6' in a])
+        porcentaje = ((len(pedidos_cliente) - cancelados)*100)/len(pedidos_cliente)
+        return int(porcentaje)
+
+    def obten_pedidos_cliente(self):
+        return self.env['modulo_pruebas.pedido'].search([('cliente', '=', self.cliente.id), ('id', '!=', self.id)])
+
     def _estados_del_pedido(self, grupo, dominio, orden):
         return self.env['modulo_pruebas.estado_pedido'].search([('orden', '<', 6)], order='orden Asc')
 
@@ -87,5 +108,9 @@ class Pedido(models.Model):
         if finalizadas:
             for finalizada in finalizadas:
                 finalizada.write({'activa': False})
+
+    def genera_reporte_administrador(self):
+        pedidos = self.search([('activa', '=', True), ('cliente.name', 'ilike', 'administrador')])
+        return self.env.ref('modulo_pruebas.action_report_pedidos').report_action(pedidos)
 
 

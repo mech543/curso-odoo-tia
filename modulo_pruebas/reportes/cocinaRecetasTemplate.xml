@@ -9,23 +9,32 @@
                             <h2 class="text-center">Recetas de cocina <span t-field="cocina.nombre"/></h2>
                             <br/>
                             <br/>
+
+                            <t t-set="id_cocina" t-value="cocina.id"/>
+                            <t t-set="cantidad_recetas_disponibles" t-value="cocina.obten_recetas_disponibles(id_cocina)"/>
+                            <p> Recetas disponibles: <span t-esc="cantidad_recetas_disponibles"/></p>
+
                             <table class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Nombre</th>
+                                        <th colspan="2" scope="col">Nombre</th>
                                         <th scope="col">Ingredientes</th>
                                         <th scope="col">Precio</th>
-                                        <th scope="col">Autor</th>
+                                        <th colspan="2" scope="col">Autor</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <t t-if="not cocina.recetas">
                                         <tr>
-                                            <td colspan="4" class="text-center">Esta cocina no tiene recetas</td>
+                                            <td colspan="6" class="text-center">Esta cocina no tiene recetas</td>
                                         </tr>
                                     </t>
                                     <t t-foreach="cocina.recetas" t-as="receta">
-                                        <tr>
+                                        <tr style="text-align:center">
+                                            <td style="vertical-align:middle;">
+                                                <img t-attf-src="data:image/*;base64,{{receta.imagen}}"
+                                                     style="width:85;height:85px;"/>
+                                            </td>
                                             <td>
                                                 <t t-raw="receta.nombre"/>
                                             </td>
@@ -37,6 +46,9 @@
                                             </td>
                                             <td>
                                                 <t t-raw="receta.autor.name"/>
+                                            </td>
+                                            <td>
+                                                <img t-attf-src="data:image/*;base64,{{receta.autor_imagen}}"/>
                                             </td>
                                         </tr>
                                     </t>

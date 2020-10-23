@@ -97,6 +97,15 @@
             <field name="code">model.finaliza_turno()</field>
         </record>
 
+        <record model="ir.actions.server" id="modulo_pruebas.reporte_pedido_administrador">
+            <field name="name">Generar reporte de pedido de administrador</field>
+            <field name="model_id" ref="model_modulo_pruebas_pedido"/>
+            <field name="type">ir.actions.server</field>
+            <field name="state">code</field>
+            <field name="binding_model_id" ref="model_modulo_pruebas_pedido"/>
+            <field name="code">action = model.genera_reporte_administrador()</field>
+        </record>
+
         <record model="ir.actions.act_window" id="modulo_pruebas.accion_pedidos">
             <field name="name">Listado de Pedidos</field>
             <field name="res_model">modulo_pruebas.pedido</field>
@@ -155,5 +164,10 @@
                   name="Estados de pedido"
                   parent="modulo_pruebas.menu_pedido"
                   action="modulo_pruebas.accion_estado_pedido"/>
+
+        <menuitem id="modulo_pruebas.menu_reporte_administrador"
+                  name="Imprimir reporte pedidos del administrador"
+                  parent="modulo_pruebas.menu_pedido"
+                  action="modulo_pruebas.reporte_pedido_administrador"/>
     </data>
 </odoo>
