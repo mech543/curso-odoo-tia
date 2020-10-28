@@ -79,7 +79,7 @@
 
                 </t>
             </t>
-            <span  t-esc="modulo_pruebas.pedido.fin_turno()"/>
+            <!--<span  t-esc="modulo_pruebas.pedido.fin_turno()"/>-->
         </template>
     </data>
 </odoo>
