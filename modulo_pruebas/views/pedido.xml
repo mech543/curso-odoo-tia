@@ -97,6 +97,15 @@
             <field name="code">model.finaliza_turno()</field>
         </record>
 
+        <record model = "ir.actions.server" id = "modulo_pruebas.reporte_fin_turno">
+            <field name = "name">Imprimir Finalizar Pedido</field>
+            <field name = "model_id" ref = "model_modulo_pruebas_pedido" />
+            <field name = "type">ir.actions.server</field>
+            <field name = "state">code</field>
+            <field name = "binding_model_id" ref = "model_modulo_pruebas_pedido" />
+            <field name = "code">action = model.reporte_cierre()</field>
+        </record>
+
         <record model="ir.actions.server" id="modulo_pruebas.reporte_pedido_administrador">
             <field name="name">Generar reporte de pedido de administrador</field>
             <field name="model_id" ref="model_modulo_pruebas_pedido"/>
@@ -169,5 +178,9 @@
                   name="Imprimir reporte pedidos del administrador"
                   parent="modulo_pruebas.menu_pedido"
                   action="modulo_pruebas.reporte_pedido_administrador"/>
+
+         <menuitem name = "Reporte Fin Turno" id = "modulo_pruebas.menu_reporte_finTurno"
+                  parent = "modulo_pruebas.menu_pedido"
+                  action = "modulo_pruebas.reporte_fin_turno" />
     </data>
 </odoo>

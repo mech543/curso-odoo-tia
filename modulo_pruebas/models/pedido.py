@@ -113,4 +113,8 @@ class Pedido(models.Model):
         pedidos = self.search([('activa', '=', True), ('cliente.name', 'ilike', 'administrador')])
         return self.env.ref('modulo_pruebas.action_report_pedidos').report_action(pedidos)
 
+    def reporte_cierre(self):
+        no_finalizados = self.env['modulo_pruebas.pedido'].search([('estado.orden', '<', 5), ('activa', '=', True)])
+        return self.env.ref('modulo_pruebas.action_report_pedidos_cancelados').report_action(no_finalizados)
+
 
