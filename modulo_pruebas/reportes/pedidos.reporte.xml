@@ -9,14 +9,4 @@
             file="modulo_pruebas.reporte_pedidos"
             attachment_use="True"
     />
-
-    <report
-            id="action_report_pedidos_cancelados"
-            model="modulo_pruebas.pedido"
-            string="Resumen Pedidos"
-            report_type="qweb-pdf"
-            name="modulo_pruebas.reporte_pedido_detalle_canc"
-            file="modulo_pruebas.reporte_pedido_detalle_canc"
-            attachment_use="True"
-    />
 </odoo>

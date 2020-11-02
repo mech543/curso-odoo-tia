@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="modulo_pruebas.form_desactiva_receta" model="ir.ui.view">
+            <field name="name">formulario desactiva_receta</field>
+            <field name="model">modulo_pruebas.desactiva_receta</field>
+            <field name="arch" type="xml">
+                <form create="0">
+                    <group>
+                        <field name="receta"/>
+                        <field name="justificacion"/>
+                    </group>
+                    <footer>
+                        <button name="desactiva" string="Desactivar" class="btn btn-primary" type="object"/>
+                        <button string="Descartar" class="btn btn-link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="modulo_pruebas.ventana_desactiva_receta">
+            <field name="name">Desactivar de Recetas</field>
+            <field name="res_model">modulo_pruebas.desactiva_receta</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        <menuitem name="Desactivar receta"
+                  id="modulo_pruebas.menu_desactiva_receta"
+                  action="modulo_pruebas.ventana_desactiva_receta"
+                  parent="modulo_pruebas.menu_raiz"/>
+    </data>
+</odoo>

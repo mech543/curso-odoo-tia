@@ -6,8 +6,11 @@
             <field name="view_mode">tree,form</field>
         </record>
 
-        <menuitem name="Ingredientes" id="modulo_pruebas.submenu"
-                  parent="modulo_pruebas.menu_raiz"
+        <menuitem name="Ingredientes" id="modulo_pruebas.menu_ingredientes"
+                  parent="modulo_pruebas.menu_raiz"/>
+
+        <menuitem name="Listado de ingredientes" id="modulo_pruebas.submenu"
+                  parent="modulo_pruebas.menu_ingredientes"
                   action="modulo_pruebas.ventana_ingredientes"/>
 
     </data>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="modulo_pruebas.form_lista_ingrediente" model="ir.ui.view">
+            <field name="name">formulario lista_ingrediente</field>
+            <field name="model">modulo_prubeas.lista_ingredientes</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="ingrediente"/>
+<!--                     declarar vista en sitio
+                        <field name="recetas">
+                            <tree>
+                                <field name="nombre"/>
+                                <field name="precio"/>
+                            </tree>
+                        </field>
+
+                        Referencia a tree
+                        <field name="recetas"
+                                   context="{'tree_view_ref':'modulo_pruebas.receta_tree_generico'}"/>
+                                   -->
+<!--                        Referencia a kanban (atributo mode 'kanban')-->
+                        <field name="recetas"
+                               context="{'kanban_view_ref':'modulo_pruebas.receta_kanban'}"
+                               mode="kanban"
+                        />
+                    </group>
+                    <footer>
+                        <button string="Descartar" class="btn btn-link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="modulo_pruebas.ventana_lista_receta">
+            <field name="name">Listar recetas por ingrediente</field>
+            <field name="res_model">modulo_prubeas.lista_ingredientes</field>
+            <field name="view_mode">form</field>
+            <field name="binding_model_id" ref="model_modulo_pruebas_ingrediente"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem name="Listar recetas"
+                  id="modulo_pruebas.menu_lista_receta"
+                  action="modulo_pruebas.ventana_lista_receta"
+                  parent="modulo_pruebas.menu_ingredientes"/>
+    </data>
+</odoo>

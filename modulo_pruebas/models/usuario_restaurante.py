@@ -10,3 +10,4 @@ class UsuarioRestaurante(models.Model):
 
     tipo = fields.Many2one('modulo_pruebas.tipo_usuario')
     activo = fields.Boolean(default=True)
+
