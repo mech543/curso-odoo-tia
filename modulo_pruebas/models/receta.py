@@ -31,6 +31,26 @@ class Receta(models.Model):
         print(f"Receta activada: {self.disponible}")
         return False
 
+    @api.onchange('ingredientes', 'cocina')
+    def ejemplo_change(self):
+        def calcula_precio():
+            return 10 * 800
+        # warning, domain, value
+        if self.cocina.nombre == 'Italiana':
+            return {
+                'warning': {
+                    'title': 'Advertencia',
+                    'message': 'Solo hay un chef para la cocina italiana',
+                    'type': 'notification'
+                },
+                'domain': {
+                    'autor': []
+                },
+                'value': {
+                    'precio': calcula_precio()
+                }
+            }
+
     @api.depends('ingredientes', 'cocina')
     def _resumen_ingredientes(self):
         for record in self:

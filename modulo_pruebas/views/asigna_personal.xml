@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="modulo_pruebas.wiz_asigna_personal_form">
+            <field name="name">Formulario asignación de personal</field>
+            <field name="model">modulo_pruebas.mt_asigna_personal</field>
+            <field name="arch" type="xml">
+                   <form>
+                       <group>
+                           <field name="pedido" readonly="1"/>
+                           <field name="personal_recepcion"
+                                  domain="[('tipo.clave', '=', 'R-RECEPCION'), ('activo', '=', 1)]"/>
+                           <field name="personal_recepcion_foto" widget="image" />
+                           <field name="personal_preparacion"
+                                  domain="[('tipo.clave', '=', 'R-CHEF'), ('activo', '=', 1)]"/>
+                           <field name="personal_preparacion_foto" widget="image" />
+                           <field name="personal_entrega"
+                                  domain="[('tipo.clave', '=', 'R-REPARTIDOR'), ('activo', '=', 1)]"/>
+                           <field name="personal_entrega_foto" widget="image" />
+                       </group>
+
+                       <footer>
+                           <button string="Descartar" special="cancel"></button>
+                           <button name="actualiza_pedido" string="Actualizar el pedido"
+                                   type="object" class="btn btn-primary"/>
+                       </footer>
+                   </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="modulo_pruebas.wiz_asigna_personal">
+            <field name="name">Asignación de personal</field>
+            <field name="binding_model_id" ref="model_modulo_pruebas_pedido"/>
+            <field name="res_model">modulo_pruebas.mt_asigna_personal</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

@@ -13,7 +13,11 @@ class Pedido(models.Model):
     cliente = fields.Many2one('res.users')
     estado = fields.Many2one('modulo_pruebas.estado_pedido', group_expand='_estados_del_pedido')
     detalles = fields.One2many('modulo_pruebas.detalle_pedido', 'pedido')
+    recepcionista = fields.Many2one('hr.employee')
+    cocinero = fields.Many2one('hr.employee')
+    repartidor = fields.Many2one('hr.employee')
     activa = fields.Boolean(default=True)
+
     # Propiedad virtual
     resumen = fields.Char(compute='_calcula_resumen')
     total = fields.Float(compute='_calcula_total')

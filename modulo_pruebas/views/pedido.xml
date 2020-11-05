@@ -63,6 +63,9 @@
                                    context="{'order_display':'orden desc'}"
                                    options="{'no_create': True, 'no_open': True}"/>
                             <field name="activa" readonly="0"/>
+                            <field name="recepcionista"/>
+                            <field name="cocinero"/>
+                            <field name="repartidor"/>
                         </group>
                     </sheet>
                     <sheet>

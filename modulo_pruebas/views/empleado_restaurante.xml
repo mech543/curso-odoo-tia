@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="modulo_pruebas.formulario_empleados">
+            <field name="name">Formulario de empleados del restaurante</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+
+                <!--
+                position="after"
+                position="inside"
+                position="before"
+                position="attributes"
+                position="replace"
+
+                -->
+                <xpath expr="//notebook/page[last()]" position="before">
+                    <page string="Cocina">
+                        <group>
+                            <field name="tipo"/>
+                            <field name="activo"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

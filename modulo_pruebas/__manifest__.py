@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'mail'],
+    'depends': ['base', 'mail', 'hr'],
 
     # always loaded
     'data': [
@@ -35,6 +35,8 @@
         'views/usuario.xml',
         'views/desactiva_receta.xml',
         'views/lista_ingredientes.xml',
+        'views/asigna_personal.xml',
+        'views/empleado_restaurante.xml',
         'secuencias/receta.secuencia.xml',
         'reportes/reporte.xml',
         'reportes/cocinaRecetasTemplate.xml',
