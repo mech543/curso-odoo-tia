@@ -34,6 +34,11 @@
             <field name="arch" type="xml">
                 <form>
                     <sheet>
+                        <div class="oe_button_box">
+                            <button class="oe_stat_button" name="lista_ingredientes" type="object" icon="fa-bars">
+                                <field name="cuenta_ingredientes" widget="statinfo" string="Detalle de Ingredientes"/>
+                            </button>
+                        </div>
                         <header>
                             <button string="Habilitar/Deshabilitar" name="activa_receta"
                                     type="object"/>

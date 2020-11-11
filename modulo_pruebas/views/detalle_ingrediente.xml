@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="modulo_pruebas.form_ingrediente_receta">
+            <field name="name">Formulario</field>
+            <field name="model">modulo_pruebas.ingrediente_receta</field>
+            <field name="arch" type="xml">
+                <form>
+                    <field name="ingrediente"/>
+                    <field name="cantidad"/>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="modulo_pruebas.tree_ingrediente_receta">
+            <field name="name">Listado</field>
+            <field name="model">modulo_pruebas.ingrediente_receta</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="ingrediente"/>
+                    <field name="cantidad"/>
+                </tree>
+            </field>
+        </record>
+    </data>
+</odoo>

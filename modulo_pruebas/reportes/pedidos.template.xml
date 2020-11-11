@@ -4,7 +4,7 @@
         <template id="modulo_pruebas.reporte_pedidos">
             <t t-call="web.html_container">
                 <t t-foreach="docs" t-as="pedido">
-                    <t t-call="web.external_layout">
+                    <t t-call="modulo_pruebas.header_footer_id">
                         <div class="page">
                             <div class="card bg-light">
                                 <div class="card-header">
@@ -93,5 +93,33 @@
                 </t>
             </t>
         </template>
+
+        <template id="header_footer_id">
+
+            <t t-if="pedido and 'company_id' in pedido">
+                <t t-set="company" t-value="pedido.company_id"></t>
+            </t>
+            <t t-if="not pedido or not 'company_id' in pedido">
+                <t t-set="company" t-value="res_company"></t>
+            </t>
+
+            <t t-call="modulo_pruebas.header_ejemplo_id"/>
+            <t t-raw="0"/>
+            <t t-call="modulo_pruebas.footer_ejemplo_id"/>
+        </template>
+
+        <template id="header_ejemplo_id">
+            <div class="header">
+                <img t-if="company.logo" t-attf-src="image_data_uri(company.logo)" style="max-height: 45px"/>
+                <h3>Encabezado personalizado</h3>
+            </div>
+        </template>
+
+        <template id="footer_ejemplo_id">
+            <div class="footer">
+                <h4 t-if="company.website" class="text-center"><span t-field="company.website"/></h4>
+            </div>
+        </template>
+
     </data>
 </odoo>

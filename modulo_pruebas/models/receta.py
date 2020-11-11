@@ -25,6 +25,8 @@ class Receta(models.Model):
 
     # propiedades virtuales
     ingredientes_resumen = fields.Char(compute='_resumen_ingredientes')
+    cuenta_ingredientes = fields.Integer(compute='_calcula_cuenta_ingredientes')
+
 
     def activa_receta(self):
         self.disponible = not self.disponible
@@ -80,3 +82,18 @@ class Receta(models.Model):
             values['nombre'] = self.nombre
         modificada = super(Receta, self).write(values)
         return modificada
+
+    def _calcula_cuenta_ingredientes(self):
+        for record in self:
+            record.cuenta_ingredientes = self.env['modulo_pruebas.ingrediente_receta']\
+                                .search_count([('receta', '=', record.id)])
+
+    def lista_ingredientes(self):
+        return {
+            'type': "ir.actions.act_window",
+            "name": f"Ingredientes de {self.nombre}",
+            "res_model": 'modulo_pruebas.ingrediente_receta',
+            "view_mode": 'tree,form',
+            'domain': [('receta', '=', self.id)],
+            'context': {'default_receta': self.id, 'default_cantidad': 2}
+        }

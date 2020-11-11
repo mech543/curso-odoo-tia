@@ -37,6 +37,7 @@
         'views/lista_ingredientes.xml',
         'views/asigna_personal.xml',
         'views/empleado_restaurante.xml',
+        'views/detalle_ingrediente.xml',
         'secuencias/receta.secuencia.xml',
         'reportes/reporte.xml',
         'reportes/cocinaRecetasTemplate.xml',
