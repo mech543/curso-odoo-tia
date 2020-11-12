@@ -117,4 +117,34 @@ class Pedido(models.Model):
         pedidos = self.search([('activa', '=', True), ('cliente.name', 'ilike', 'administrador')])
         return self.env.ref('modulo_pruebas.action_report_pedidos').report_action(pedidos)
 
+    @api.onchange('recepcionista')
+    def seleccion_recepcionista(self):
+        return self.seleccion_empleado('recepcionista', self.recepcionista.id)
+
+    @api.onchange('cocinero')
+    def seleccion_cocinero(self):
+        return self.seleccion_empleado('cocinero', self.cocinero.id)
+
+    @api.onchange('repartidor')
+    def seleccion_repartidor(self):
+        return self.seleccion_empleado('repartidor', self.repartidor.id)
+
+    def seleccion_empleado(self, tipo, id_empleado):
+
+        if self.id:
+            cuenta = self.env['modulo_pruebas.pedido']\
+                .search_count(['&', (tipo, '=', id_empleado), ('id', '!=', self.id), ('activa', '=', True)])
+        else:
+            cuenta = self.env['modulo_pruebas.pedido'] \
+                .search_count(['&', (tipo, '=', id_empleado), ('activa', '=', True)])
+
+        if cuenta:
+            return {
+                'warning': {
+                    'title': 'Advertencia',
+                    'message': 'Este empleado ya está asignado a otro pedido',
+                    'type': 'notification'
+                }
+            }
+
 
